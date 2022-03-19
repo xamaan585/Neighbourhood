@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 import cloudinary
 import cloudinary.uploader
@@ -90,7 +90,9 @@ WSGI_APPLICATION = 'Neighbourhood.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'neighbour',
+        'USER': 'suleiman',
+        'PASSWORD':'db_password',
     }
 }
 
@@ -130,6 +132,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = 'hoods'
+LOGOUT_REDIRECT_URL = 'login'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dzhxp777b',
@@ -137,6 +149,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'NyVFQzHFPKnSIEYqKPbmu9FSwms',
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
